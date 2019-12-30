@@ -1,0 +1,1 @@
+nmmes   /run/media/damian/0848C12501A123DE/Animes/ --profile=https://raw.githubusercontent.com/NMMES/nmmes-cli/master/src/profiles/archive.json  --delete --skip-video-codec libx265 vp9
