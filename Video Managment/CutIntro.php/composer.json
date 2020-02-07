@@ -1,0 +1,15 @@
+{
+    "name": "damian/cut-intro.php",
+    "type": "project",
+    "minimum-stability": "dev",
+    "require": {
+        "nategood/commando": "dev-master",
+        "technodelight/shell-exec": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "CutIntro\\": "src/",
+            "Vendor\\Namespace\\": ""
+        }
+    }
+}
