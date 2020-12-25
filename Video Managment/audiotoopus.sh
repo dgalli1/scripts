@@ -1,0 +1,1 @@
+find . -iname '*.mkv' -exec bash  -c 'ffmpeg -i "$0" -map 0 -acodec libopus -vcodec copy -scodec copy "${0/.mkv/AC3.mkv}" && rm "${0}" && mv "${0/.mkv/AC3.mkv}" "${0/AC3.mkv/.mkv}"' {} \;
