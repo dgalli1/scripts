@@ -1,0 +1,9 @@
+#!/usr/bin/php
+<?php
+$escaped_url = str_replace('https://www.dropbox.com/work/','',$argv[1]);
+$escaped_url = str_replace('?preview=','\\',$escaped_url);
+$escaped_url = urldecode($escaped_url);
+$out = shell_exec('cd / && winepath --windows "'.$escaped_url.'" 2> /dev/null');
+echo str_replace("Z:\\","D:\Dropbox\\",$out);
+
+?>
