@@ -1,0 +1,1 @@
+complete -f -c phpswitch -a '(ls  /usr/local/php | cut -c 4-)'
