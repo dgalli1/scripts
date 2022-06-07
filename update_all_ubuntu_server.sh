@@ -35,7 +35,7 @@ fi
 echo "Now Updating all Docker Containers"
 export TZ=UTC # force all timestamps to be in UTC (+00:00 / Z)
 printf -v now '%(%s)T'
-start_date_epoch=$((now - 7200)) # 2 hours ago
+start_date_epoch=$(now)
 printf -v start_date_iso8601 '%(%Y-%m-%dT%H:%M:%S+00:00)T' "$start_date_epoch"
 
 # Declare an array of string with type
