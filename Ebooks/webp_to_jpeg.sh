@@ -16,7 +16,7 @@ do
         dwebp $f -o $output
         echo "convert $output -fuzz 10% -trim +repage $output"
         convert $output -fuzz 10% -trim +repage $output
-    dodne
+    done
     sed -i "s/.webp/.png/g"
     #compress the images
     rm -rf *.webp
