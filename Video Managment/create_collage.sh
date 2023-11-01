@@ -3,12 +3,35 @@
 input_video=$1
 output_collage=$2
 
-total_frames=$(mediainfo --Output="Video;%FrameCount%" $input_video)
-#get fps of video
-fps=$(mediainfo --Output="Video;%FrameRate%" $input_video)
+total_frames=$(mediainfo --Output="Video;%FrameCount%" "$input_video")
+#check if total_frames is empty
+if [ -z "$total_frames" ]; then
+    echo "Error: Could not get total frames of video, fallback to packages"
+    total_frames=$(ffprobe -show_packets  "$input_video"   2>/dev/null | grep video | wc -l)
+    if [ -z "$total_frames" ]; then
+        echo "Error: Could not get total frames of video, fallback didn't work either"
+        exit 1
+    fi
+fi
 
+#get fps of video
+fps=$(mediainfo --Output="Video;%FrameRate%" "$input_video")
+
+#check if fps is empty
+if [ -z "$fps" ]; then
+    #needed for variable bitrate media, it will just be a guess, but should be good enough for some timestamps
+    echo "Error: Could not get fps of video"
+    echo "Guess timestamps by total frames and duration"
+    # get duration in seconds
+    duration=$(mediainfo --Inform="Video;%Duration%" "$input_video")
+    duration=$(echo "scale=2; $duration/1000" | bc)
+    fps=$(echo "scale=2; $total_frames/($duration)" | bc)
+    if [ -z "$fps" ]; then
+        echo "Error: Could not get fps of video, fallback didn't work either"
+        exit 1
+    fi
+fi
 numframes=21
-# calculate duration of video in seconds
 
 #create tmp directory if it doesn't exist
 
@@ -20,7 +43,11 @@ rm /tmp/collage/*
 rate=$(echo "scale=0; $total_frames/$numframes" | bc)
 ffmpeg -i "$input_video" -f image2 -vf "select='not(mod(n,$rate))'" -frame_pts 1 -vframes $numframes -fps_mode vfr /tmp/collage/out-%06d.png
 
-rm /tmp/collage/out-000000.png
+# get first file from /tmp/collage/ and remove it
+first_file=$(ls /tmp/collage/ | head -n 1)
+
+# remove first file
+rm "/tmp/collage/$first_file"
 
 mogrify -resize 400x /tmp/collage/out*.png
 # loop through all created files
