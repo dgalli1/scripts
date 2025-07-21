@@ -2,39 +2,47 @@
 sleep 3
 while true; do
   # Press the Down arrow key
-  xdotool keydown Down
-  xdotool keyup Down
+  ydotool key 108:1
+  ydotool key 108:0
+  sleep 0.1
 
   # Press the Enter key
-  xdotool keydown Return
-  xdotool keyup Return
+  ydotool key 28:1
+  ydotool key 28:0
+  sleep 0.1
 
   # Sleep for 1 second
   sleep 1
 
   # Press the Right arrow key 8 times
   for i in {1..8}; do
-    xdotool keydown Right
-    xdotool keyup Right
+    ydotool key 106:1
+    ydotool key 106:0
+    sleep 0.1
   done
 
   # Write the text "Holiday"
-  xdotool type "Holiday"
+  ydotool type "Holidaz"
+  sleep 0.1
 
   # Press the Right arrow key
-  xdotool keydown Right
-  xdotool keyup Right
+  ydotool key 106:1
+  ydotool key 106:0
+  sleep 0.1
 
   # Write the text "Holiday"
-  xdotool type "Holiday"
+  ydotool type "Holidaz"
+  sleep 0.1
 
   # Press the Escape key
-  xdotool keydown Escape
-  xdotool keyup Escape
+  ydotool key 1:1
+  ydotool key 1:0
+  sleep 0.1
 
   # Press the Enter key
-  xdotool keydown Return
-  xdotool keyup Return
+  ydotool key 28:1
+  ydotool key 28:0
+  sleep 0.1
 
   # Sleep for 1 second
   sleep 1
